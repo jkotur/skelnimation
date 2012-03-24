@@ -12,7 +12,7 @@ from glwidget import GLDrawingArea
 
 from scene import Scene
 
-ui_file = "empty.ui"
+ui_file = "skelnim.ui"
 
 class App(object):
 	"""Application main class"""
@@ -51,8 +51,7 @@ class App(object):
 		win_main.connect('key-release-event', self._on_key_released )
 
 		self.scene = Scene( self.fov , .01 , self.near , self.far )
-		self.drawing_area.add( self.scene , ( 0,0,.5,1) )
-		self.drawing_area.add( self.scene , (.5,0,.5,1) )
+		self.drawing_area.add( self.scene , ( 0,0,1,1) )
 
 		print 'Scene added'
 
@@ -141,7 +140,7 @@ class App(object):
 
 	def init_glext(self):
 		# Query the OpenGL extension version.
-#        print "OpenGL extension version - %d.%d\n" % gtk.gdkgl.query_version()
+		print "OpenGL extension version - %d.%d\n" % gtk.gdkgl.query_version()
 
 		# Configure OpenGL framebuffer.
 		# Try to get a double-buffered framebuffer configuration,
@@ -157,21 +156,21 @@ class App(object):
 			display_mode &= ~gtk.gdkgl.MODE_DOUBLE
 			glconfig = gtk.gdkgl.Config(mode=display_mode)
 
-#        print "is RGBA:",                 glconfig.is_rgba()
-#        print "is double-buffered:",      glconfig.is_double_buffered()
-#        print "is stereo:",               glconfig.is_stereo()
-#        print "has alpha:",               glconfig.has_alpha()
-#        print "has depth buffer:",        glconfig.has_depth_buffer()
-#        print "has stencil buffer:",      glconfig.has_stencil_buffer()
-#        print "has accumulation buffer:", glconfig.has_accum_buffer()
-#        print
+		print "is RGBA:",                 glconfig.is_rgba()
+		print "is double-buffered:",      glconfig.is_double_buffered()
+		print "is stereo:",               glconfig.is_stereo()
+		print "has alpha:",               glconfig.has_alpha()
+		print "has depth buffer:",        glconfig.has_depth_buffer()
+		print "has stencil buffer:",      glconfig.has_stencil_buffer()
+		print "has accumulation buffer:", glconfig.has_accum_buffer()
+		print
 
 		return glconfig
 
-	def on_win_main_destroy(self,widget,data=None):
-		gtk.main_quit()
-		 
-	def on_but_quit_clicked(self,widget,data=None):
+	def on_model_set(self,widget,data=None):
+		print widget.get_filename()
+
+	def on_quit(self,widget,data=None):
 		gtk.main_quit()
 
 if __name__ == '__main__':
